@@ -1,0 +1,4 @@
+logomaker>=0.8
+matplotlib>=3.7
+pandas>=2.0
+pytest>=7.0

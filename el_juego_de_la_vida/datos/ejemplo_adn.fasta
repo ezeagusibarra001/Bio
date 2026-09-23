@@ -1,0 +1,7 @@
+>gen_ejemplo_1 secuencia de juguete para probar el buscador
+GCGCGATATAAAGGCTAGCTAGGCATCGATCGGATCCTATAAACGCGTACGTTAGC
+ATGCCGTATAAAGGGCATTTACGGATCC
+>gen_ejemplo_2 una sola caja, no alcanza para delimitar region
+ACGTACGTTATAAAGCGCGCGCATGCAT
+>gen_ejemplo_3 caja en la hebra reversa
+GGGCCCTTTATAGGGCATGCATTTTATAGCCC
