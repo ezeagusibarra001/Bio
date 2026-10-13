@@ -6,6 +6,7 @@ Monorepo con los trabajos prácticos de **Introducción a la Bioinformática** (
 |---|---|---|
 | [`el_juego_de_la_vida/`](el_juego_de_la_vida/) | El juego de la vida | Célula procariota vs. eucariota, proteína → ARN, cajas TATA, RPG de expresión génica |
 | [`biomoleculas/`](biomoleculas/) | Biomoléculas | Representación de proteínas, Rosalind Franklin, predicción de estructura secundaria, motivos en UniProt, sequence logos |
+| [`alineamientos_secuenciales/`](alineamientos_secuenciales/) | Alineamientos secuenciales | Homología, identidad y gaps, Needleman-Wunsch (implementación propia), matrices de sustitución, BLAST |
 
 Cada carpeta es un proyecto independiente con su propio `README.md` (respuestas teóricas + cómo usar los scripts), sus datos de ejemplo y sus tests.
 
