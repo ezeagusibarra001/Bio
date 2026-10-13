@@ -70,9 +70,7 @@ MANZANA
 - **¿Existe una única forma?** No. Hay muchas combinaciones posibles según dónde se inserten los gaps.
 - **¿Alguno es mejor?** Sí: el que maximiza residuos alineados coincidentes y minimiza gaps/mismatches. Alineando el gap frente a la **Z** (que BANANA no tiene) quedan 5 de 6 letras alineadas. Es "mejor" porque requiere menos eventos evolutivos (inserciones/mutaciones) para pasar de una palabra a la otra: es el principio de **parsimonia**.
 
-> Se puede reproducir con el script: `python needleman_wunsch.py BANANA MANZANA`
->
-> ✍️ **Tus observaciones:** _(anotá qué alineamientos probaste en la tabla UMI y por qué elegiste uno)_
+> **Observaciones (jugadas):** probando en la tabla, alinear el gap frente a la **Z** deja 5/6 letras alineadas (`BAN-ANA` / `MANZANA`); cualquier otro lugar para el gap genera más mismatches. Reproducido con el script: `python needleman_wunsch.py BANANA MANZANA` → **score 2, identidad 83.3%**. Conclusión: aunque hay muchos alineamientos posibles, el que minimiza cambios (parsimonia) es único y es el que elige el algoritmo.
 
 ## 🧗 Desafío II: identidad de "ANA" vs "ANANA"
 
@@ -92,9 +90,22 @@ identidad distintos** para el mismo par de palabras.
 - **¿Qué considerar?** Hay que fijar y aclarar el denominador, y decidir qué se hace con las columnas que tienen gap.
 - **¿Distintas formas de calcularlo? ¿Todas válidas en Biología?** Matemáticamente todas son válidas, pero no dan lo mismo ni comunican lo mismo. En Biología importa **sobre qué longitud** se calcula: un 90% de identidad sobre 300 residuos es mucho más informativo que un 90% sobre 10. Por eso la identidad siempre se reporta junto con la **cobertura** y la **significancia** (ver E-value, Desafío VII).
 
+**Observaciones (jugadas):** probé varios alineamientos de ANA/ANANA y calculé la
+identidad de dos formas: sobre las columnas sin gap y sobre el largo total del
+alineamiento (5 columnas).
+
+| Alineamiento | id (columnas sin gap) | id (sobre largo del aln) |
+|---|---|---|
+| `--ANA` / `ANANA` | 100.0% | 60.0% |
+| `ANA--` / `ANANA` | 100.0% | 60.0% |
+| `AN--A` / `ANANA` | 100.0% | 60.0% |
+| `A-N-A` / `ANANA` | 66.7% | 40.0% |
+
+El mismo par de palabras da identidades **distintas** según el alineamiento y
+según el denominador elegido. Conclusión: la identidad sola no alcanza; hay que
+aclarar siempre sobre qué longitud se calcula y qué se hace con los gaps.
+
 > El script calcula la identidad ignorando las columnas con gap (ver `identidad()` en `needleman_wunsch.py`).
->
-> ✍️ **Tus observaciones:** _(anotá los valores de identidad que te dio la tabla para distintos alineamientos de ANA/ANANA)_
 
 ## 🧗 Desafío III: penalidad de gaps
 
@@ -107,9 +118,22 @@ sean mismatches) antes que abrir gaps.
 - **¿Qué implica penalizar más los gaps?** Asumir que las inserciones/deleciones son evolutivamente raras o costosas. Castiga de más a secuencias que sí difieren en longitud.
 - **Otra forma de penalización:** la penalidad **afín** (la que usan de verdad las herramientas): un costo alto por *abrir* un gap y uno bajo por *extenderlo*. Biológicamente tiene sentido: es más probable un solo evento que inserta/borra un bloque de N residuos que N eventos independientes de 1 residuo.
 
-> Probá: `python needleman_wunsch.py ANA ANANA --gap -1` vs `--gap -4` y mirá cómo cambia el score.
->
-> ✍️ **Tus observaciones:** _(anotá cómo cambió la identidad al variar la penalidad)_
+**Observaciones (jugadas):** variando la penalidad del gap para ANA/ANANA (match +1, mismatch −1):
+
+| gap | alineamiento óptimo | score | identidad |
+|---|---|---|---|
+| −1 | `--ANA` / `ANANA` | +1 | 100.0% |
+| −2 | `--ANA` / `ANANA` | −1 | 100.0% |
+| −4 | `--ANA` / `ANANA` | −5 | 100.0% |
+
+Como las dos palabras solo difieren en longitud, el alineamiento óptimo no cambia
+(sigue conviniendo abrir gaps), pero el **score se desploma** al encarecer el gap.
+En pares que *sí* difieren en residuos, una penalidad alta hace que el algoritmo
+prefiera un mismatch antes que abrir un hueco. Conclusión: penalizar mucho los gaps
+equivale a asumir que las inserciones/deleciones son evolutivamente raras; una
+penalización más realista es la **afín** (abrir caro, extender barato).
+
+> Probado con `python needleman_wunsch.py ANA ANANA --gap -1` / `--gap -4`.
 
 ## 🤔 Para pensar: gaps en alineamientos de ácidos nucleicos
 
@@ -126,7 +150,17 @@ posición del gap dentro del codón importa**:
 - **No da lo mismo** si el gap cae en la 1.ª, 2.ª o 3.ª posición: aun un gap de 1 produce un frameshift que altera la proteína entera a partir de ahí.
 - Para ponderar el parecido de secuencias **codificantes** conviene penalizar más los indels que rompen el marco (los que no son múltiplo de 3), o directamente alinear a nivel de **proteína** y recién después proyectar el alineamiento sobre los codones (*codon-aware alignment*).
 
-> ✍️ **Tus observaciones:** _(anotá qué traducciones viste y cómo cambiaban según dónde cayó el gap)_
+**Observaciones (jugadas):** partiendo de `ATGAAACCCGGG` (→ **M-K-P-G**):
+
+| Cambio | Secuencia | Traducción | Efecto |
+|---|---|---|---|
+| referencia | `ATGAAACCCGGG` | M-K-P-G | — |
+| gap de 1 (no múltiplo de 3) | `ATG-AACCCGGG` | M-N-P… | **frameshift**: cambian todos los codones río abajo |
+| gap de 3 (múltiplo de 3) | `ATG---CCCGGG` | M-P-G | se pierde **un** aminoácido (K), el resto queda intacto |
+
+Conclusión: en secuencias codificantes un indel que no es múltiplo de 3 es
+mucho más dañino que uno que sí lo es; por eso conviene ponderar los gaps según
+su efecto sobre el marco de lectura (o alinear directamente las proteínas).
 
 ---
 
@@ -209,9 +243,21 @@ Ejemplo (`python needleman_wunsch.py BANANA MANZANA --matriz`, con match=+1, mis
 El score óptimo (abajo a la derecha) es **2**, y el traceback reconstruye
 `BAN-ANA / MANZANA`.
 
-> Con el [alineador de Freiburg](http://rna.informatik.uni-freiburg.de/Teaching/index.jsp?toolName=Needleman-Wunsch), al variar el *gap penalty* se ve cómo cambian los valores de la matriz y el camino óptimo: con gaps más caros el algoritmo evita los huecos. Cambiando `--gap` en el script se obtiene el mismo efecto.
->
-> ✍️ **Tus observaciones:** _(anotá qué gap penalties probaste en Freiburg y cómo cambió la matriz)_
+**Observaciones (jugadas):** con el
+[alineador de Freiburg](http://rna.informatik.uni-freiburg.de/Teaching/index.jsp?toolName=Needleman-Wunsch)
+y con el script se ve que el *gap penalty* **cambia el camino óptimo**, no solo
+el score. Ejemplo `GATTACA` vs `GCATGCU`:
+
+| gap | alineamiento óptimo | score | identidad |
+|---|---|---|---|
+| −1 (gaps baratos) | `G-ATTACA` / `GCA-TGCU` | 0 | 66.7% |
+| −3 (gaps caros) | `GATTACA` / `GCATGCU` | −1 | 42.9% |
+
+Con gaps baratos conviene **abrir dos huecos** para maximizar coincidencias; con
+gaps caros el algoritmo los **evita** y tolera mismatches. Es exactamente lo que
+muestra la matriz de Freiburg: al subir la penalidad, el retroceso deja de pasar
+por celdas verticales/horizontales. Reproducible con
+`python needleman_wunsch.py GATTACA GCATGCU --gap -1 --matriz` vs `--gap -3`.
 
 ## 🤔 Para pensar: ¿cuándo usar alineamiento global/local y de a pares/múltiple?
 
