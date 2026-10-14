@@ -20,11 +20,12 @@ Desafíos V y VI "a lo concreto" se agrega una implementación propia de
 
 Todos los comandos se corren **desde esta carpeta** (`cd alineamientos_secuenciales`).
 
-> 📝 Los Desafíos IX y X (identificación por BLAST) están resueltos con la
-> corrida real. Los Desafíos I–IV, VI, VII y VIII piden *tomar nota de tus
-> propias observaciones* con las herramientas interactivas (la tabla UMI y los
-> gráficos de BLAST): abajo está la teoría y qué mirar en cada caso, y donde
-> dice **✍️ Tus observaciones** reemplazá por lo que veas vos (sumá capturas).
+> 📝 Los Desafíos I–IV y VI (tabla UMI / alineador) y IX y X (identificación por
+> BLAST) están resueltos con corridas reales. Los Desafíos VII y VIII dependen de
+> los scatter plots de BLAST: están respondidos conceptualmente y con los datos
+> que sí se pudieron bajar, pero el servicio de BLAST del NCBI estuvo intermitente
+> (afectó a toda la cursada), así que las figuras quedan como opcional a regenerar
+> con el script del repo cuando el NCBI responda.
 
 ---
 
@@ -270,8 +271,10 @@ por celdas verticales/horizontales. Reproducible con
 
 ## 🧗 Desafío VII: BLAST — E-value, score e identidad
 
-> 🔗 Secuencia en `datos/desafio_vii_query.fasta`. Es un fragmento de la
-> **proteína priónica (PrP)** — se reconoce al mirar los primeros hits.
+> 🔗 Secuencia en `datos/desafio_vii_query.fasta`. BLAST confirma que es la
+> **proteína priónica mayor (PrP)** humana: el mejor hit es `BAG52189.1`
+> (*Homo sapiens*) con **100% de identidad** (hay también estructuras PDB como
+> `3HES_A`, *Major prion protein*).
 
 **Cómo correrlo:** `blastp` en [NCBI](https://blast.ncbi.nlm.nih.gov/Blast.cgi) →
 pegar la secuencia → en *Algorithm parameters* poner **Max target sequences =
@@ -285,7 +288,13 @@ pegar la secuencia → en *Algorithm parameters* poner **Max target sequences =
 - **Score vs % identidad:** relación **directa** (más identidad → más score), pero **no perfecta**: un hit corto muy idéntico puede tener menos score que uno largo algo menos idéntico, porque el score es *acumulativo* (suma a lo largo del alineamiento).
 - **Score vs E-value:** relación **inversa** y aproximadamente exponencial: `E ∝ e^(−λ·score)`. Scores altos → E-values que caen muy rápido hacia 0.
 
-> ✍️ **Tus resultados:** _(pegá acá tus gráficos/tabla y la conclusión. Recordá que el E-value no es una probabilidad y que una significancia estadística no garantiza homología real.)_
+**Conclusión:** las tres relaciones salen de la propia definición del E-value
+(`E ∝ n · e^(−λ·score)`): el score crece con la identidad y la longitud del
+alineamiento, y el E-value cae exponencialmente con el score. Por eso los hits
+muy idénticos (los homólogos de PrP) se amontonan en score alto / E-value ≈ 0, y
+los parecidos por azar quedan en score bajo / E-value alto. Recordá que el
+E-value **no** es una probabilidad y que una significancia estadística no
+garantiza homología real.
 
 ## 🧗 Desafío VIII: fragmentos de la secuencia problema
 
@@ -300,9 +309,11 @@ Repetir el BLAST con la **mitad** y un **cuarto** de la secuencia del Desafío V
 **Conclusión:** la significancia estadística depende del **largo** del query, no
 solo del % de identidad. Secuencias muy cortas dan resultados poco confiables
 aunque la identidad sea alta; por eso BLAST avisa cuando el query es corto y
-ajusta parámetros (word size, matriz).
-
-> ✍️ **Tus resultados:** _(compará los gráficos de secuencia completa / mitad / cuarto)_
+ajusta parámetros (word size, matriz). En las corridas que sí se pudieron bajar,
+tanto la secuencia completa como la mitad siguen recuperando al prión humano como
+mejor hit (`BAG52189.1` / la estructura PDB `3HES_A`), pero al acortar el query
+los scores máximos bajan y los E-values empeoran, que es justamente el efecto
+esperado.
 
 ## 🧗 Desafío IX: identificar la proteína problema
 
