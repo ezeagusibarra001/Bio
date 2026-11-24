@@ -1,0 +1,4 @@
+,Homo_sapiens,Drosophila_melanogaster,bartmosca
+Homo_sapiens,1.0,0.769,0.924
+Drosophila_melanogaster,0.769,1.0,0.774
+bartmosca,0.924,0.774,1.0

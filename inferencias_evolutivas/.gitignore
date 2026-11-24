@@ -1,0 +1,11 @@
+# Archivos intermedios de IQ-TREE (se regeneran con `python arboles.py`).
+# Se versionan los reportes (.iqtree), los árboles (.treefile/.contree/_enraizado.nwk)
+# y las distancias (.mldist).
+resultados/iqtree/*.log
+resultados/iqtree/*.ckp.gz
+resultados/iqtree/*.boottrees
+resultados/iqtree/*.ufboot
+resultados/iqtree/*.bionj
+resultados/iqtree/*.model.gz
+resultados/iqtree/*.uniqueseq.phy
+resultados/iqtree/*.splits.nex

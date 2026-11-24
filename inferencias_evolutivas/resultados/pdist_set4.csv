@@ -1,0 +1,5 @@
+,Homo_sapiens,Drosophila_melanogaster,Drosophila_distal,bartmosca
+Homo_sapiens,0.0,0.231,0.33,0.076
+Drosophila_melanogaster,0.231,0.0,0.298,0.245
+Drosophila_distal,0.33,0.298,0.0,0.248
+bartmosca,0.076,0.245,0.248,0.0

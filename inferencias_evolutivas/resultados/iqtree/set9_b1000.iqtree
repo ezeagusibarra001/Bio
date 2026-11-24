@@ -1,0 +1,140 @@
+IQ-TREE 3.1.4 built Sep 10 2026
+
+Input file name: /Users/ezequielibarra/Desktop/UNQ/Bio/inferencias_evolutivas/resultados/aln_mafft_set9.fasta
+Type of analysis: tree reconstruction + non-parametric bootstrap (1000 replicates)
+Random seed number: 20261124
+
+REFERENCES
+----------
+
+To cite IQ-TREE 3 please use:
+
+Thomas K.F. Wong, Nhan Ly-Trong, Huaiyan Ren, Piyumal Demotte, Hector Banos,
+Andrew J. Roger, Edward Susko, Chris Bielow, Nicola De Maio, Nick Goldman,
+Matthew W. Hahn, Mario dos Reis, Le Sy Vinh, Gavin Huttley, Robert Lanfear, Bui Quang Minh (2026)
+IQ-TREE 3: Phylogenomic Inference Software using Complex Evolutionary Models.
+Molecular Biology and Evolution, msag117.
+https://doi.org/10.1093/molbev/msag117
+
+SEQUENCE ALIGNMENT
+------------------
+
+NOTE: Alignment sequence type is auto-detected. If in doubt, specify it via -st option.
+Input data: 9 sequences with 131 amino-acid sites
+Number of constant sites: 57 (= 43.5115% of all sites)
+Number of invariant (constant or ambiguous constant) sites: 57 (= 43.5115% of all sites)
+Number of parsimony informative sites: 45
+Number of distinct site patterns: 100
+
+SUBSTITUTION PROCESS
+--------------------
+
+Model of substitution: DAYHOFF+G4
+
+State frequencies: (model)
+
+Model of rate heterogeneity: Gamma with 4 categories
+Gamma shape alpha: 1.1272
+
+ Category  Relative_rate  Proportion
+  1         0.1616         0.2500
+  2         0.5119         0.2500
+  3         1.0183         0.2500
+  4         2.3082         0.2500
+Relative rates are computed as MEAN of the portion of the Gamma distribution falling in the category.
+
+MAXIMUM LIKELIHOOD TREE
+-----------------------
+
+Log-likelihood of the tree: -1112.8318 (s.e. 62.9253)
+Unconstrained log-likelihood (without tree): -579.1564
+Number of free parameters (#branches + #model parameters): 16
+Akaike information criterion (AIC) score: 2257.6636
+Corrected Akaike information criterion (AICc) score: 2262.4355
+Bayesian information criterion (BIC) score: 2303.6668
+
+Total tree length (sum of branch lengths): 2.2442
+Sum of internal branch lengths: 0.7802 (34.7637% of tree length)
+
+NOTE: Tree is UNROOTED although outgroup taxon 'Homo_sapiens' is drawn at root
+Numbers in parentheses are  standard bootstrap support (%)
+
++--Homo_sapiens
+|
+|                        +------Ectocarpus_siliculosus
+|                    +---| (47)
+|                    |   +---------------------------------Rhizobium_sp__CF097
+|  +-----------------| (88)
+|  |                 |  +---Hordeum_vulgare
+|  |                 +--| (43)
+|  |                    |     +--Lupinus_albus
+|  |                    |  +--| (63)
+|  |                    |  |  +--Betula_platyphylla
+|  |                    +--| (85)
+|  |                       +**Vigna_radiata
++--| (47)
+|  +-------Drosophila_melanogaster
+|
++--bartmosca
+
+Tree in newick format:
+
+(Homo_sapiens:0.0314334036,(((Ectocarpus_siliculosus:0.1794074956,Rhizobium_sp__CF097:0.8304005644)47:0.1044466992,(Hordeum_vulgare:0.1014793414,((Lupinus_albus:0.0220444750,Betula_platyphylla:0.0419515376)63:0.0208325604,Vigna_radiata:0.0067988129)85:0.0582011723)43:0.0881575288)88:0.4427876984,Drosophila_melanogaster:0.2077533263)47:0.0657547834,bartmosca:0.0427893175);
+
+CONSENSUS TREE
+--------------
+
+Consensus tree is constructed from 1000 bootstrap trees
+Log-likelihood of consensus tree: -1113.376279
+Robinson-Foulds distance between ML tree and consensus tree: 2
+
+Branches with support >0.000000% are kept (extended consensus)
+Branch lengths are optimized by maximum likelihood on original alignment
+Numbers in parentheses are bootstrap supports (%)
+
++--Homo_sapiens
+|
+|                        +------------Ectocarpus_siliculosus
+|                  +-----| (50)
+|                  |     |   +---Hordeum_vulgare
+|                  |     +---| (43)
+|                  |         |     +--Lupinus_albus
+|                  |         |  +--| (63)
+|                  |         |  |  +--Betula_platyphylla
+|                  |         +--| (85)
+|                  |            +--Vigna_radiata
+|  +---------------| (88)
+|  |               +---------------------------------------Rhizobium_sp__CF097
++--| (47)
+|  +---------Drosophila_melanogaster
+|
++--bartmosca
+
+
+Consensus tree in newick format: 
+
+(Homo_sapiens:0.0320940880,(((Ectocarpus_siliculosus:0.2628160431,(Hordeum_vulgare:0.0996163453,((Lupinus_albus:0.0220621938,Betula_platyphylla:0.0416489735)63:0.0206633302,Vigna_radiata:0.0069119274)85:0.0584729899)43:0.0981319085)50:0.1289732438,Rhizobium_sp__CF097:0.8085420344)88:0.3299657159,Drosophila_melanogaster:0.2174765516)47:0.0569236848,bartmosca:0.0423885850);
+
+ALISIM COMMAND
+--------------
+To simulate an alignment of the same length as the original alignment, using the tree and model parameters estimated from this analysis, you can use the following command:
+
+--alisim simulated_MSA -t /Users/ezequielibarra/Desktop/UNQ/Bio/inferencias_evolutivas/resultados/iqtree/set9_b1000.treefile -m "DAYHOFF+G4{1.12724}" --length 131
+
+To mimic the alignment used to produce this analysis, i.e. simulate an alignment of the same length as the original alignment, using the tree and model parameters estimated from this analysis *and* copying the same gap positions as the original alignment, you can use the following command:
+
+iqtree -s /Users/ezequielibarra/Desktop/UNQ/Bio/inferencias_evolutivas/resultados/aln_mafft_set9.fasta --alisim mimicked_MSA
+
+To simulate any number of alignments in either of the two commandlines above, use the --num-alignments options, for example mimic 100 alignments you would use the command line:
+
+iqtree -s /Users/ezequielibarra/Desktop/UNQ/Bio/inferencias_evolutivas/resultados/aln_mafft_set9.fasta --alisim mimicked_MSA --num-alignments 100
+
+For more information on using AliSim, please visit: www.iqtree.org/doc/AliSim
+
+TIME STAMP
+----------
+
+Date and time: Tue Nov 24 11:05:49 2026
+Total CPU time used: 2123.609028 seconds (0h:35m:23s)
+Total wall-clock time used: 2133.136384 seconds (0h:35m:33s)
+

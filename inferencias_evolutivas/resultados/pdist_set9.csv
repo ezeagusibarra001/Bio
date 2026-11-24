@@ -1,0 +1,10 @@
+,Homo_sapiens,Ectocarpus_siliculosus,Rhizobium_sp__CF097,Hordeum_vulgare,Lupinus_albus,Drosophila_melanogaster,Betula_platyphylla,Vigna_radiata,bartmosca
+Homo_sapiens,0.0,0.385,0.455,0.375,0.362,0.221,0.371,0.356,0.067
+Ectocarpus_siliculosus,0.385,0.0,0.43,0.311,0.279,0.427,0.288,0.272,0.413
+Rhizobium_sp__CF097,0.455,0.43,0.0,0.468,0.495,0.495,0.505,0.514,0.456
+Hordeum_vulgare,0.375,0.311,0.468,0.0,0.161,0.38,0.161,0.152,0.377
+Lupinus_albus,0.362,0.279,0.495,0.161,0.0,0.407,0.062,0.045,0.374
+Drosophila_melanogaster,0.221,0.427,0.495,0.38,0.407,0.0,0.417,0.417,0.226
+Betula_platyphylla,0.371,0.288,0.505,0.161,0.062,0.417,0.0,0.054,0.393
+Vigna_radiata,0.356,0.272,0.514,0.152,0.045,0.417,0.054,0.0,0.377
+bartmosca,0.067,0.413,0.456,0.377,0.374,0.226,0.393,0.377,0.0
