@@ -1,0 +1,13 @@
+{
+  "detector": "pyKVFinder",
+  "version_pykvfinder": "0.9.7",
+  "propka": "3.5.1",
+  "parametros": {
+    "step": 0.6,
+    "probe_in": 1.4,
+    "probe_out": 4.0,
+    "removal_distance": 2.4,
+    "volume_cutoff": 5.0
+  },
+  "umbral_activado": 1.0
+}
